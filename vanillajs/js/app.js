@@ -1,3 +1,4 @@
+//v9 - refactor: 4min
 var todoList = {
 	todos: [],
 	displayTodos: function(){
@@ -11,8 +12,7 @@ var todoList = {
 					console.log("(x) " + this.todos[i].todoText);
 				}else {
 					console.log("( ) " + this.todos[i].todoText);
-				}
-						
+				}						
 			}
 		}
 	},
@@ -56,5 +56,26 @@ var todoList = {
 			}
 		}
 		this.displayTodos();
-	}
+    }
 }
+
+document.addEventListener("DOMContentLoaded", function(event){
+    
+    var displayTodosButton = document.getElementById("displayTodosButton");
+    var toggleAllButton = document.getElementById("toggleAllButton");
+    
+    displayTodosButton.addEventListener("click", function(){
+        todoList.displayTodos();
+    });
+    
+    toggleAllButton.addEventListener("click", function(){
+        todoList.toggleAll();
+    });
+    
+});
+
+
+    
+
+
+
