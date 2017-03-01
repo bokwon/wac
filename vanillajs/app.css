@@ -1,7 +1,20 @@
-.new-todo
+#newTodo
 {
     width: 300px;
     padding: 10px;
-    margin: 20px 0;
+    margin: 20px 0 0 0;
     text-align: left;
+}
+
+ul 
+{
+	width: 300px;
+    padding: 0;
+    list-style: none;
+}
+
+ul li 
+{
+	border: 1px solid #eee;
+    padding: 10px;
 }

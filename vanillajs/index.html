@@ -8,11 +8,13 @@
 	<body>
 		<div class="container">
             <header>
-                <input class="new-todo" placeholder="What needs to be done?" autofocus>
+                <input id="newTodo" placeholder="What needs to be done?" autofocus>
                 
-                <input onclick="" type="button" value="toogle all">
-                <input onclick="" type="button" value="display todos">
+                <input onclick="handlers.toggleAll()" type="button" value="toogle all">
+                <input onclick="handlers.displayTodos()" type="button" value="display todos">
             </header>
+			<ul id="todoList">
+			</ul>
             
             <footer>   
             </footer>

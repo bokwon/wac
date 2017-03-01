@@ -21,6 +21,12 @@ var todoList = {
 			todoText: todoText, 
 			completed: false
 		});
+		// #TODO: Add todo to the todo list
+		var todoList = document.getElementById("todoList");
+		
+		
+		
+		
 		this.displayTodos();
 	},
 	changeTodo: function(position, todoText){
@@ -57,24 +63,28 @@ var todoList = {
 		}
 		this.displayTodos();
     }
-}
+};
 
-document.addEventListener("DOMContentLoaded", function(event){
-    
-    var displayTodosButton = document.getElementById("displayTodosButton");
-    var toggleAllButton = document.getElementById("toggleAllButton");
-    
-    displayTodosButton.addEventListener("click", function(){
-        todoList.displayTodos();
-    });
-    
-    toggleAllButton.addEventListener("click", function(){
-        todoList.toggleAll();
-    });
-    
-});
+var handlers = {
+	displayTodos: function(){
+		todoList.displayTodos();
+	},
+	toggleAll: function(){
+		todoList.toggleAll();
+	}
+};
 
-
+var newTodo = document.getElementById("newTodo");
+newTodo.addEventListener("keyup", function(event){
+	if(event.keyCode == 13) {
+		if (newTodo.value === "" || newTodo.value.length === 0) {
+			return;
+		}else{
+			todoList.addTodo(newTodo.value);
+		}
+		newTodo.value = "";
+	}
+})
     
 
 
