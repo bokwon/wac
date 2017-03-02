@@ -13,8 +13,14 @@ ul
     list-style: none;
 }
 
-ul li 
+#todoList div
 {
-	border: 1px solid #eee;
     padding: 10px;
+    border: 1px solid #eee;
+}
+
+
+.footer ul, .footer ul li, .footer button
+{
+    display: inline;
 }

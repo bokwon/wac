@@ -21,14 +21,20 @@ var todoList = {
 			todoText: todoText, 
 			completed: false
 		});
-		// #TODO: Add todo to the todo list
-		var todoList = document.getElementById("todoList");
-		
-		
-		
-		
+        
+        this.createNewTodoView(todoText);
 		this.displayTodos();
 	},
+    createNewTodoView: function(todoText){
+        var todoList = document.getElementById("todoList");
+        var li = document.createElement("li");
+        var div = document.createElement("div");
+        // input, label, button
+        div.innerHTML = todoText;
+        
+        li.appendChild(div);
+        todoList.appendChild(li);  
+    },
 	changeTodo: function(position, todoText){
 		this.todos[position].todoText = todoText;
 		this.displayTodos();

@@ -6,19 +6,27 @@
         <link rel="stylesheet" href="app.css">
 	</head>
 	<body>
-		<div class="container">
+		<section id="todoapp" class="container">
             <header>
                 <input id="newTodo" placeholder="What needs to be done?" autofocus>
                 
                 <input onclick="handlers.toggleAll()" type="button" value="toogle all">
                 <input onclick="handlers.displayTodos()" type="button" value="display todos">
             </header>
-			<ul id="todoList">
-			</ul>
+			<section class="main">
+                <ul id="todoList"></ul>
+            </section>
             
-            <footer>   
+            <footer class="footer">  
+                <span class="todo-count"></span>
+                <ul class="filters">
+                    <li><a href="#">All</a></li>
+                    <li><a href="#">Active</a></li>
+                    <li><a href="#">Completed</a></li>
+                </ul>
+                <button class="clear-completed">Clear completed</button>
             </footer>
-		</div>
+		</section>
 		
 		<script src="js/app.js"></script>
 	</body>
