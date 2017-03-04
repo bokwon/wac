@@ -6,6 +6,12 @@
     text-align: left;
 }
 
+label 
+{
+    margin: 0;
+    font-weight: 300;
+}
+
 ul 
 {
 	width: 300px;

@@ -9,14 +9,27 @@
 		<section id="todoapp" class="container">
             <header>
                 <input id="newTodo" placeholder="What needs to be done?" autofocus>
-                
                 <input onclick="handlers.toggleAll()" type="button" value="toogle all">
                 <input onclick="handlers.displayTodos()" type="button" value="display todos">
             </header>
 			<section class="main">
                 <ul id="todoList"></ul>
+                <div>
+                    <input id="changeTodoPositionInput" type="number">
+                    <input id="changeTodoTextInput" type="text">
+                    <input onclick="handlers.changeTodo()" type="button" value="change todo">
+                </div>
+                <div>
+                    <input id="deleteTodoPositionInput" type="number">
+                    <input onclick="handlers.deleteTodo()" type="button" value="delete todo">
+                </div>
+                <div>
+                    <input id="toggleCompletedPositionInput" type="number">
+                    <input onclick="handlers.toggleCompleted()" type="button" value="toggle Completed">
+                </div>
             </section>
             
+<!--
             <footer class="footer">  
                 <span class="todo-count"></span>
                 <ul class="filters">
@@ -26,6 +39,7 @@
                 </ul>
                 <button class="clear-completed">Clear completed</button>
             </footer>
+-->
 		</section>
 		
 		<script src="js/app.js"></script>

@@ -1,4 +1,4 @@
-//v9 - refactor: 4min
+//delete, change, toggle todos
 var todoList = {
 	todos: [],
 	displayTodos: function(){
@@ -22,19 +22,22 @@ var todoList = {
 			completed: false
 		});
         
-        this.createNewTodoView(todoText);
+//      this.createNewTodoView(todoText, id);
 		this.displayTodos();
 	},
-    createNewTodoView: function(todoText){
-        var todoList = document.getElementById("todoList");
-        var li = document.createElement("li");
-        var div = document.createElement("div");
-        // input, label, button
-        div.innerHTML = todoText;
-        
-        li.appendChild(div);
-        todoList.appendChild(li);  
-    },
+//    createNewTodoView: function(todoText, id){
+//        var todoList = document.getElementById("todoList");
+//        var li = document.createElement("li");
+//        var div = document.createElement("div");
+//        var label = document.createElement("label");
+//        
+//        li.setAttribute("data-id", id);
+//        label.innerHTML = todoText;
+//        
+//        div.appendChild(label);
+//        li.appendChild(div);
+//        todoList.appendChild(li);  
+//    },
 	changeTodo: function(position, todoText){
 		this.todos[position].todoText = todoText;
 		this.displayTodos();
@@ -45,7 +48,10 @@ var todoList = {
 	},
 	toggleCompleted: function(position){
 		var todo = this.todos[position];
-		todo.completed = !todo.completed;
+        if (todo !== undefined){
+            todo.completed = !todo.completed;
+        }
+		
 		this.displayTodos();
 	},
 	toggleAll: function(){
@@ -77,7 +83,23 @@ var handlers = {
 	},
 	toggleAll: function(){
 		todoList.toggleAll();
-	}
+	},
+    changeTodo: function(){
+        var changeTodoPositionInput = document.getElementById("changeTodoPositionInput");
+        var changeTodoTextInput = document.getElementById("changeTodoTextInput");
+        todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoTextInput.value);
+        changeTodoPositionInput.value = "";
+        changeTodoTextInput.value = "";
+    },
+    deleteTodo: function(){
+        var deleteTodoPositionInput = document.getElementById("deleteTodoPositionInput");
+        todoList.deleteTodo(deleteTodoPositionInput.valueAsNumber);
+    },
+    toggleCompleted: function(){
+        var toggleCompletedPositionInput = document.getElementById("toggleCompletedPositionInput");
+        todoList.toggleCompleted(toggleCompletedPositionInput.valueAsNumber);
+    }
+    
 };
 
 var newTodo = document.getElementById("newTodo");
@@ -91,7 +113,7 @@ newTodo.addEventListener("keyup", function(event){
 		newTodo.value = "";
 	}
 })
-    
+
 
 
 
