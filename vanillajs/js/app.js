@@ -1,11 +1,3 @@
-//delete, change, toggle todos
-//v10 Requirement
-//- There should be a way to create delete buttons
-//- delete button for each todo
-//- each li should have an id that has the todo position
-//- delete buttons should have access to the todo id 
-//- clicking delete should update todoList.todos and the DOM
-
 var todoList = {
   todos: [],
   addTodo: function(todoText)
@@ -88,15 +80,21 @@ var view = {
 
     for (var i=0; i<todoList.todos.length; i++){
       var li = document.createElement("li");
+      li.setAttribute("id", i);
 
       var button = document.createElement("button");
+      button.textContent = "Delete";
+      button.setAttribute("onClick", "todoList.deleteTodo("+i+")");
 
       if (todoList.todos[i].completed === true){
         li.textContent = "(x) " + todoList.todos[i].todoText;
       }else{
         li.textContent = "( ) " + todoList.todos[i].todoText;
-      }   
+      }
+      
+      li.appendChild(button);
       todoUl.appendChild(li);
+      
     }
   }
 }
@@ -111,7 +109,9 @@ newTodo.addEventListener("keyup", function(event){
     }
     newTodo.value = "";
   }
-})
+});
+
+
 
 
 

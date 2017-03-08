@@ -17,7 +17,11 @@ ul
 	width: 300px;
     padding: 0;
     margin: 20px;
-/*    list-style: none;*/
+}
+
+ul li button
+{
+  margin: 5px 10px;
 }
 
 #todoList div
