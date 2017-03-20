@@ -1,0 +1,18 @@
+<script src="test/tinytest.js"></script>
+<script src="runWithDebugger.js"></script>
+<script>
+  tests({
+    'runWithDebugger without second argument should be able to run the callback': function(){
+      eq('hello!', runWithDebugger(sayHi));
+    },
+    
+    'runWithDebugger with second argument should be able to run the callback': function(){
+      eq('hi bo', runWithDebugger(sayHiTo, ['bo']));
+    },
+    
+    'runWithDebugger with second argument that contains two values in an array-like object should be able to run the callback': function(){
+      eq('bo kwon', runWithDebugger(sayFullName, ['bo', 'kwon']));
+    }
+    
+  });
+</script>

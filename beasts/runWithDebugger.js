@@ -1,24 +1,24 @@
 //v1
-function logTenNumber(){
-	for(var i=0; i<10; i++){
-		console.log(i);
-	}
-}
+//function logTenNumber(){
+//	for(var i=0; i<10; i++){
+//		console.log(i);
+//	}
+//}
 
-debugger;
-logTenNumbers();
+//debugger;
+//logTenNumbers();
 
 //v2
-runWithDebugger(callback){
-	debugger;
-	callback();
-};
+//runWithDebugger(callback){
+//	debugger;
+//	callback();
+//};
 
-runWithDebugger(function logTenNumber(){
-	for(var i=0; i<10; i++){
-		console.log(i);
-	}
-})
+//runWithDebugger(function logTenNumber(){
+//	for(var i=0; i<10; i++){
+//		console.log(i);
+//	}
+//})
 
 // runWithDebugger is enhancing the behavior of logTenNumbers function.
 
@@ -27,25 +27,22 @@ runWithDebugger(function logTenNumber(){
 // runWithDebugger(sayFullName, ['gordon', 'zhu']);
 
 function sayHi(){
-	console.log('hello!');
+	return 'hello!';
 }
 
 function sayHiTo(name) {
-  console.log('hi ' + name);
+    return 'hi ' + name;
 }
 
 function sayFullName(first, last) {
-  console.log(first + ' '  + last);
+    return first + ' '  + last;
 }
 
 function runWithDebugger(callback){
 	debugger;
-	callback.apply(this, arguments[1]);
+	return callback.apply(this, arguments[1]);
 }
 
-function runWithDebugger(callback){
-	return arguments;
-}
 
 	
 
