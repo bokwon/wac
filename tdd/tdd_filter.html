@@ -1,0 +1,71 @@
+<script src="tinytest.js"></script>
+<script>  
+	
+	// filter() method creates a new array with all elements that pass the test implemeneted by the provided function.
+	function filter(array, callback){
+		
+		var resultArray = [];
+		
+		for(var i=0; i<array.length; i++){
+			if(callback(array[i])){
+				resultArray.push(array[i]);
+			}
+		}
+		
+		return resultArray;
+	}
+  
+
+  tests({
+    'It should run the callback function array.length times.': function() {
+      var numberOfTimesCallbackHasRun = 0;
+      filter([1, 2, 3], function(){
+        numberOfTimesCallbackHasRun++;
+      });
+      eq(numberOfTimesCallbackHasRun, 3);
+    },
+		'It should construct a new array of all the values for which callback returns a value that coerces to true.': function(){
+			var resultArray = [];
+			
+			resultArray = filter([1, 2, 3], function(element){
+				return element > 1;
+			});
+			
+			eq(resultArray.length, 2);
+		},	
+		'It should run the callback only for indexes of the array which have assigned values.': function(){
+			fail();
+		},
+		'It sholud not run the callback for indexes which have been deleted.': function(){
+			fail();
+		},
+		'It should not mutate the original array on which it is called.': function(){
+			fail();
+		},
+		'It should not run the callback for indexes which have never been assigned values': function() {
+			fail();
+		},
+    'It should pass in the ith element as the first argument to the callback.': function() {
+      filter([1], function(number){
+        eq(number, 1);
+      });
+    },
+    'It should pass in the ith position as the second argument to the callback.': function() {
+      filter([1], function(number, index){
+        eq(index, 0);
+      }); 
+    },
+    'It should pass in the original array as the third argument to the callback.': function() {
+      var testArray = [1, 2, 3];
+      filter(testArray, function(number, index, originalArray){
+        eq(originalArray, testArray);
+      });
+    },
+    'It should accept an optional this object.': function(){
+      filter([1], function(){
+        eq(this.description, "I should be accessible inside of the callback.");
+      }, {description: "I should be accessible inside of the callback."});
+    }
+  });
+  
+</script>
