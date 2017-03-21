@@ -1,0 +1,89 @@
+<script src="tinytest.js"></script>
+<script>  
+	
+	// filter() method creates a new array with all elements that pass the test implemeneted by the provided function.
+	function filter(originalArray, callback, optionalThisObject){
+	
+		var filterCallback = callback;
+		
+		if(optionalThisObject)
+		{
+			filterCallback = callback.bind(optionalThisObject);	//optionalThisObject is bound to callback function.
+		}
+		
+		var filteredArray = [];
+		
+		for(var i=0; i<originalArray.length; i++){
+			if(filterCallback(originalArray[i], i, originalArray)){
+				filteredArray.push(originalArray[i]);
+			}
+		}
+		
+		return filteredArray;
+	}
+  
+  tests({
+    'It should run the callback function array.length times.': function() {
+      var numberOfTimesCallbackHasRun = 0;
+      filter([1, 2, 3], function() {
+        numberOfTimesCallbackHasRun++;
+      });
+      eq(numberOfTimesCallbackHasRun, 3);
+    },
+    'It should pass in the ith element as the first argument to the callback.': function() {
+      filter([1], function(number) {
+        eq(number, 1);
+      });
+    },
+    'It should pass in the ith position as the second argument to the callback.': function() {
+      filter([1], function(number, index) {
+        eq(index, 0);
+      }); 
+    },
+    'It should pass in the original array as the third argument to the callback.': function() {
+      var testArray = [1, 2, 3];
+      filter(testArray, function(number, index, originalArray) {
+        eq(originalArray, testArray);
+      });
+    },
+    'It should accept an optional this object.': function() {
+      filter([1], function() {
+        eq(this.description, "I should be accessible inside of the callback.");
+      }, {description: "I should be accessible inside of the callback."});
+    },
+		'It should return an array.': function() {
+			var testArray = [1, 2, 3];
+			var filteredArray = filter(testArray, function(element) {});
+			
+			eq(Array.isArray(filteredArray), true);
+		},
+		'It should return a new array, not the array that being filtered.': function() {
+			var testArray = [1, 2, 3];
+			var filteredArray = filter(testArray, function(element) {});
+			
+			eq(filteredArray !== testArray, true);
+		},	
+		'It should return a new array that only has elements where callback returns true.': function() {
+			var originalArray = [1, 2, 3];
+			var filteredArray = filter(originalArray, function(element) {
+				return element > 1;
+			});
+			
+			eq(filteredArray.length, 2);
+			eq(filteredArray[0], 2);
+		}
+//		'It should run the callback only for indexes of the array which have assigned values.': function(){
+//			fail();
+//		},
+//		'It sholud not run the callback for indexes which have been deleted.': function(){
+//			fail();
+//		},
+//		'It should not mutate the original array on which it is called.': function(){
+//			fail();
+//		},
+//		'It should not run the callback for indexes which have never been assigned values': function() {
+//			fail();
+//		}
+  });
+  
+</script>
