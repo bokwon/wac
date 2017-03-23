@@ -38,9 +38,16 @@ function sayFullName(first, last) {
     return first + ' '  + last;
 }
 
-function runWithDebugger(callback){
+//v1
+//function runWithDebugger(callback){
+//	debugger;
+//	return callback.apply(this, arguments[1]);
+//}
+
+//v2
+function runWithDebugger(callback, optionalArray){
 	debugger;
-	return callback.apply(this, arguments[1]);
+	return callback.apply(this, optionalArray);
 }
 
 

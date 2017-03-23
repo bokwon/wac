@@ -1,0 +1,90 @@
+<script src="tinytest.js"></script>
+<script>  
+	
+	//map() creates a new array with the results of calling a provided function on every element in this array.
+	function map(array, callback, optionalThisObject){
+		
+		var mapCallback = callback;
+		var mappedArray = [];
+		
+		if(optionalThisObject) {
+			mapCallback = callback.bind(optionalThisObject);		
+		}
+		
+		for(var i=0; i<array.length; i++)
+			{
+				if(array[i] === undefined){
+					mappedArray.push(array[i]);
+				}
+				
+				mappedArray.push(mapCallback(array[i], i, array));
+			}
+		
+		return mappedArray;
+	}
+  
+  tests({
+    'It should run the callback function array.length times.': function() {
+			var numberOfTimesCallbackRun = 0;
+			map([1, 2, 3], function(){
+				numberOfTimesCallbackRun++;
+			})
+			
+			eq(numberOfTimesCallbackRun, 3);
+    
+    },
+    'It should pass in the ith element as the first argument to the callback.': function() {
+      map([3], function(number){
+				eq(number, 3);
+			})
+    },
+    'It should pass in the ith position as the second argument to the callback.': function() {
+     	map([3], function(number, index){
+				eq(index, 0);
+			})
+    },
+    'It should pass in the original array as the third argument to the callback.': function() {
+      var originalArray = [1, 2, 3];
+			
+			map(originalArray, function(number, index, array){
+				eq(originalArray, array);
+			});
+    },
+    'It should accept an optional this object.': function() {
+			map([1, 2, 3], function(){
+				eq(this.fnName, 'map');			
+			}, {fnName: 'map'});
+		},
+		'It should return an array.': function() {
+			var mappedArray = map([1], function(){});
+			
+			eq(Array.isArray(mappedArray), true);
+			
+		},
+		'It should return a new array, not the original array.': function() {
+			var originalArray = [1, 2, 3];
+			var mappedArray = map(originalArray, function(){});
+			
+			eq(originalArray !== mappedArray, true);
+			
+		},	
+		'': function() {
+			
+		},
+		'It should return a new array that have same length of original array.': function() {
+			var originalArray = [1, 2, 3];
+			var mappedArray = map(originalArray, function(){});
+			
+			eq(originalArray.length === mappedArray.length, true);
+			
+		},
+		'It should keep result array indices blank same as original array if original array contains holes in the array.': function() {
+			var originalArray = [1, 2, , 3];
+			var mappedArray = map(originalArray, function(num){return num * 2;});
+			
+			eq(originalArray[2] === undefined, true);
+			eq(mappedArray[2] === undefined, true);
+		}
+  });
+  
+</script>
