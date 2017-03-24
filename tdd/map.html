@@ -2,7 +2,7 @@
 <script>  
 	
 	//map() creates a new array with the results of calling a provided function on every element in this array.
-	function map(array, callback, optionalThisObject){
+	function map(originalArray, callback, optionalThisObject){
 		
 		var mapCallback = callback;
 		var mappedArray = [];
@@ -11,13 +11,11 @@
 			mapCallback = callback.bind(optionalThisObject);		
 		}
 		
-		for(var i=0; i<array.length; i++)
+		for(var i=0; i<originalArray.length; i++)
 			{
-				if(array[i] === undefined){
-					mappedArray.push(array[i]);
+				if(i in originalArray){
+					mappedArray[i] = mapCallback(originalArray[i], i, originalArray);
 				}
-				
-				mappedArray.push(mapCallback(array[i], i, array));
 			}
 		
 		return mappedArray;
@@ -67,9 +65,12 @@
 			
 			eq(originalArray !== mappedArray, true);
 			
-		},	
-		'': function() {
+		},
+		'It should return a mapped array': function(){
+			var originalArray = [1, 2, 3];
+			var mappedArray = map(originalArray, function(num){ return num * 4});
 			
+			eq(mappedArray[0] === 4, true);
 		},
 		'It should return a new array that have same length of original array.': function() {
 			var originalArray = [1, 2, 3];
@@ -78,12 +79,18 @@
 			eq(originalArray.length === mappedArray.length, true);
 			
 		},
-		'It should keep result array indices blank same as original array if original array contains holes in the array.': function() {
-			var originalArray = [1, 2, , 3];
-			var mappedArray = map(originalArray, function(num){return num * 2;});
+		'It should skip unassigned indexes.': function() {
+			var originalArray = [, 1];
+			var mappedArray = map(originalArray, function double(num) {
+				return num * 2;
+			});
 			
-			eq(originalArray[2] === undefined, true);
-			eq(mappedArray[2] === undefined, true);
+			// property in object
+			// (0 in mappedArray) === false;
+			// mappedArray[1] === 2;
+			
+			eq(0 in mappedArray, false);
+			eq(mappedArray[1] === 2, true);
 		}
   });
   
