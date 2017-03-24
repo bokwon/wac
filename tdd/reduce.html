@@ -1,0 +1,54 @@
+<script src="tinytest.js"></script>
+<script>  
+	// reduce() method applies a function against an accumulator and each element in the array (from left to right) to reduce it to a single value.
+	
+	// arr.reduce(callback, [initialValue]);
+	// callback(accumulator, currentValue, currentIndex, array);
+	// initialValue
+	// 1. if initialValue is supplied, this value to use as the first argument to the first call of the callback.
+	// 2. if No initialValue is supplied, the first element in the array will be used as the first argument to the first call of the callback.
+	// 3. Calling reduce on an empty array without an initialValue is an error.
+	// return value => the value that results from the reduction.
+	// reduce executes the callback function once for each element present in the array, excluding holes in the array. (TypeError)
+	// *accumulator, currentValue
+	// 1. if initialValue is supplied, then accumulator will be equal to initialValue, and currentValue will be equal to the first value in the array. reduce will execute the callback functoin starting at index 0.
+	// 2. if No initialValue is supplied, then accumulator will be equal to the first value in the array, and currentValue will be equal to the second. reduce will execute the callback function starting at index 1.
+	// if the array has only one value and No initialValue or initialValue is provided but the array is empty, the solo value will be returned without calling callback.
+	
+	
+  tests({
+    'It should run the callback function array.length times.': function() {
+			
+    },
+    'It should pass in the ith element as the first argument to the callback.': function() {
+    
+    },
+    'It should pass in the ith position as the second argument to the callback.': function() {
+     	
+    },
+    'It should pass in the original array as the third argument to the callback.': function() {
+      
+    },
+    'It should accept an optional this object.': function() {
+			
+		},
+		'It should return an array.': function() {
+			
+		},
+		'It should return a new array, not the original array.': function() {
+		
+			
+		},
+		'It should return a mapped array': function(){
+		
+		},
+		'It should return a new array that have same length of original array.': function() {
+		
+			
+		},
+		'It should skip unassigned indexes.': function() {
+			
+		}
+  });
+  
+</script>

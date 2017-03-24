@@ -26,7 +26,7 @@
 			var numberOfTimesCallbackRun = 0;
 			map([1, 2, 3], function(){
 				numberOfTimesCallbackRun++;
-			})
+			});
 			
 			eq(numberOfTimesCallbackRun, 3);
     
@@ -34,12 +34,12 @@
     'It should pass in the ith element as the first argument to the callback.': function() {
       map([3], function(number){
 				eq(number, 3);
-			})
+			});
     },
     'It should pass in the ith position as the second argument to the callback.': function() {
      	map([3], function(number, index){
 				eq(index, 0);
-			})
+			});
     },
     'It should pass in the original array as the third argument to the callback.': function() {
       var originalArray = [1, 2, 3];
