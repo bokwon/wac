@@ -5,55 +5,53 @@
 		
 		var startingIndex = 0;
 		var resultSoFar = initialValue;
-//		var arrayWithoutHoles = [];
 		
+		// No initialValue
 		if (arguments.length < 3) {
+			
+			// array is empty, throw TypeError
+			if (Object.keys(array).length === 0) {
+				throw new TypeError('Reduce of empty array with no initial value');
+			}
+			
+			// If array has one element, just return it.
+			if (Object.keys(array).length === 1){
+				var onlyIndex = Object.keys(array)[0];
+				var onlyElement = array[onlyIndex];
+				return onlyElement;
+			}
+			
+//			# my version.
+//			for(var i=startingIndex; i<array.length; i++) {
+//				if(i in array){
+//					resultSoFar = array[i];
+//					startingIndex = i;
+//					startingIndex++
+//					break;
+//				}	
+//			}
+			
+			while(startingIndex in array === false && startingIndex < array.length) {
+				startingIndex++;
+			}
+			
 			resultSoFar = array[startingIndex];
 			startingIndex++;
-			
-			if (Object.keys(array).length === 1){
-				var singleIndex = Object.keys(array)[0];
-				var singleElement = array[singleIndex];
-				return singleElement;
-			}
 			
 		} else {
 			if (Object.keys(array).length === 0) {
 				return resultSoFar;
 			} 
-//			else {
-//				Object.keys(array).map(function(element){return arrayWithoutHoles[element] = array[element]});
-//			}
 		}
 		
 		for(var i=startingIndex; i<array.length; i++)
 		{	
-			resultSoFar = callback(resultSoFar, array[i], i);
-			
+			if( i in array){
+				resultSoFar = callback(resultSoFar, array[i], i, array);
+			}
 		}
 		
 		return resultSoFar;
-		
-		
-		
-//		if (initialValue !== null) 
-//		{
-//			resultSoFar = initialValue;
-//		}
-//		
-//		if (initialValue === undefined) {
-//			if (array.length === 1 )
-//			{
-//					return array[0];
-//			}
-//			
-//			if (array.length === 0)
-//			{
-//				throw new TypeError("callback can't be run on empty data.");
-//			}
-//		}
-//		
-		
 	}
 	
   tests({
@@ -127,73 +125,45 @@
 			eq(reducedResult, 20);
 		},
 		'It should exclude holes': function(){
-			var reducedResult = reduce([1,,,,2,,,,3,,,4,,5], function(a, b){
+			var reducedResult = reduce([1,,,,2,,,,3,,,4,,5,], function(a, b){
 				return a + b;
 			}, 5);
 			
 			eq(reducedResult, 20);
+		},
+		'If no initialValue, it should exclude holes too.': function() {
+			var reducedResult = reduce([,1,,2,3,], function(a, b){
+				return a + b;
+			});
+			
+			eq(reducedResult, 6);
+		},
+		'If array is empty, and no initialValue, throw TypeError.': function() {
+			var isTypeError = false;
+			try {
+				reduce([], function(){});
+			} catch(e) {
+				isTypeError = (e instanceof TypeError);	
+			}
+			
+			eq(isTypeError, true);
+		},
+		'It should pass array as forth argument to callback.': function() {
+			var testArray = [1, 2];
+			var reducedResult = reduce(testArray, function(previousValue, currentValue, currentIndex, arrayToReduce){
+				return previousValue + currentValue;
+				eq(testArray, arrayToReduce);
+			}, 0);
 		}
 	});
-//		'If initialValue is provided, second argument of the callback will be equal to the first value in the original array.': function() {
-//			var originalArray = [1];
-//			var optionalInitialValue = 3;
-//			var reduceArray = reduce(originalArray, function(acc, val){
-//				eq(val === 1, true);
-//			}, optionalInitialValue);
-//		},
-//		'If initialValue, callback will start at index 0.': function() {
-//			var originalArray = [1];
-//			var reducedArray = reduce(originalArray, function(acc, val){ 
-//				eq(val === 1, true);
-//			}, 3);
-//		},
-//		'If initialValue is provided, but original array is empty callback function will not be run': function() {
-//			var originalArray = [];
-//			var optionalInitialValue = 3;
-//			var testArray = [];
-//			var reduceArray = reduce(originalArray, function(acc, val){
-//				testArray.push(optionalInitialValue);	
-//			}, optionalInitialValue);
-//			
-//			eq(testArray.length === 0, true);
-//		},
-//		'If no initialValue is provided, it will execute the callback function at index 1': function() {
-//			var originalArray = [1, 2];
-//			var reducedArray = reduce(originalArray, function(acc, val){ 
-//				eq(acc === 1, true);
-//				eq(val === 2, true);
-//			});
-//		},
-//    'If no initialValue is provided, first argument of the callback will be equal to the first value in the original array.': function() {
-//     	var originalArray = [1, 2];
-//			var reduceArray = reduce(originalArray, function(acc, val){
-//				eq(acc === 1, true);
-//			});
-//    },
-//    'If no initialValue is provided, second argument of the callback will be equal to the second value in the original array.': function() {
-//      var originalArray = [1, 2];
-//			var reduceArray = reduce(originalArray, function(acc, val){
-//				eq(val === 2, true);
-//			});
-//    },
-////		'If no initialValue is provided and original array is empty, TypeError will be thrown.': function() {
-////			var originalArray = [];
-////			var error = "";
-////			var reducedArray = reduce([], function(){}); >>> TypeError
-////			
-////			eq(error === "callback can't be run on empty data.", true);
-////		},
-//		'If no initialValue and original array has only one item, callback function will not be run': function() {
-//			var originalArray = [3];
-//			var testArray = [];
-//			var reducedArray = reduce(originalArray, function(acc, val){
-//				testArray.push(3);
-//				return acc + val;
-//			});
-//			
-//			eq(testArray.length === 0, true);
-//			eq(reducedArray === 3, true);
-//		}
-//  });
-  
+	
+	
+//	try {
+//		// code might potentially throw an error
+//		[].reduce(function(){});
+//	} catch (e) {
+//		// catch the error
+//		console.log(e instanceof TypeError)
+//	}
+		
 </script>
