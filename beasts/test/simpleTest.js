@@ -51,7 +51,7 @@ var TinyTestHelper = {
 							+ successString + ', ' 
 			 				+ failureString ;
 			
-		var summaryElement = document.createElement('p');
+		var summaryElement = document.createElement('h1');
 		summaryElement.textContent = summaryString;
 		document.body.appendChild(summaryElement);
 	}
